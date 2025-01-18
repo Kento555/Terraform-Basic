@@ -1,16 +1,18 @@
-#To retrieve VPC ID of the default or custom VPC
-variable "vpc_id" {}
+# Dynamically Retrieve VPC ID
 
-data "aws_vpc" "selected" {
-  id = var.vpc_id
+data "aws_vpc" "ws_vpc" {
   filter {
-    name   = "WS-2025-vpc"
-    values = ["true"] # Retrieves the default VPC
+    name   = "tag:Name"      # Look for VPCs with a "Name" tag
+    values = ["WS-2025-vpc"] # Retrieves from my VPC Name tag value
   }
-}
+} 
 
-resource "aws_subnet" "example" {
-  vpc_id            = data.aws_vpc.selected.id
-  availability_zone = "us-east-1"
-  cidr_block        = cidrsubnet(data.aws_vpc.selected.cidr_block, 4, 1)
-}
+# data.aws_vpc.ws_vpc.id
+# Now, replace hardcoded VPC references with data.aws_vpc.ws_vpc.id
+
+# option: Fetch default VPC:
+
+# data "aws_vpc" "selected" {
+#   default = true # Set to true to retrieve the default VPC
+# }
+

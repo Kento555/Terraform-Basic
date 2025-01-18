@@ -1,20 +1,21 @@
-# resource "aws_instance" "public" {
-#   ami                         = "ami-0df8c184d5f6ae949"
-#   instance_type               = "t2.micro"
-#   subnet_id                   = "subnet-012deeadf67a152b8"  #Public Subnet ID, e.g. subnet-xxxxxxxxxxx
-#   associate_public_ip_address = true
-#   key_name                    = "weishen-keypair" #Change to your keyname, e.g. jazeel-key-pair
-#   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+# This rsource to create EC2
+resource "aws_instance" "public" {
+  ami                         = "ami-0df8c184d5f6ae949"
+  instance_type               = "t2.micro"
+  subnet_id                   = "subnet-012deeadf67a152b8"       # Public Subnet ID, e.g. subnet-xxxxxxxxxxx
+  associate_public_ip_address = true
+  key_name                    = "weishen-keypair"                # Change to your keyname, e.g. jazeel-key-pair
+  vpc_security_group_ids      = [aws_security_group.allow_ssh.id]
  
-#   tags = {
-#     Name = "ws-ec2"    #Prefix your own name, e.g. jazeel-ec2
-#   }
-# }
+  tags = {
+    Name = "ws-ec2"                                              # Prefix your own name, e.g. jazeel-ec2
+  }
+}
 
-# resource "aws_security_group" "allow_ssh" {
-#   name        = "ws-terraform-security-group" #Security group name, e.g. jazeel-terraform-security-group
+# resource "aws_security_group" "allow_ssh" {                      # Don't need to create anymore, relocate to aws_security_group.tf
+#   name        = "ws-terraform-security-group"                    # Security group name, e.g. jazeel-terraform-security-group
 #   description = "Allow SSH inbound"
-#   vpc_id      = "vpc-03ace88df2a82c8e6"  #VPC ID (Same VPC as your EC2 subnet above), E.g. vpc-xxxxxxx
+#   vpc_id      = "vpc-03ace88df2a82c8e6"                          # VPC ID (Same VPC as your EC2 subnet above), E.g. vpc-xxxxxxx
 # }
 
 # resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
