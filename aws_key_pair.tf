@@ -6,7 +6,7 @@ data "aws_key_pair" "ws_keypair" {
 
   # filter {
   #   name   = "tag:Component"
-  #   values = ["weishen-keypair"]
+  #   values = ["weishen-keypair"]       # I don't have tag for this keypair , thus exclude this filter
   # }
 }
 
